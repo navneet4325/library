@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@theme {
+  --font-sans: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+  --font-display: "Space Grotesk", "Avenir Next", sans-serif;
+}
+
+:root {
+  color-scheme: light;
+  --page-bg: #eef4ff;
+  --panel: rgba(255, 255, 255, 0.62);
+  --panel-strong: rgba(255, 255, 255, 0.72);
+  --accent-soft: rgba(56, 189, 248, 0.14);
+  --text-primary: #0f172a;
+  --text-secondary: rgba(15, 23, 42, 0.72);
+  --text-muted: rgba(71, 85, 105, 0.82);
+  --chart-axis: rgba(71, 85, 105, 0.72);
+  --shadow-soft: 0 20px 60px rgba(15, 23, 42, 0.08);
+  --shadow-strong: 0 30px 90px rgba(15, 23, 42, 0.16);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  --page-bg: #07111f;
+  --panel: rgba(7, 18, 35, 0.68);
+  --panel-strong: rgba(8, 20, 38, 0.78);
+  --accent-soft: rgba(56, 189, 248, 0.18);
+  --text-primary: #e2e8f0;
+  --text-secondary: rgba(226, 232, 240, 0.78);
+  --text-muted: rgba(148, 163, 184, 0.88);
+  --chart-axis: rgba(148, 163, 184, 0.8);
+  --shadow-soft: 0 24px 70px rgba(2, 6, 23, 0.34);
+  --shadow-strong: 0 34px 120px rgba(2, 6, 23, 0.55);
+}
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  html {
+    @apply min-h-full scroll-smooth;
+  }
+
+  body {
+    @apply m-0 min-h-screen font-sans text-[var(--text-primary)] antialiased;
+    background:
+      radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), transparent 32%),
+      radial-gradient(circle at 80% 12%, rgba(251, 191, 36, 0.12), transparent 28%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0)),
+      linear-gradient(var(--page-bg), var(--page-bg));
+    background-attachment: fixed;
+  }
+
+  [data-theme='dark'] body {
+    background:
+      radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 28%),
+      radial-gradient(circle at 85% 10%, rgba(245, 158, 11, 0.14), transparent 24%),
+      linear-gradient(180deg, rgba(15, 23, 42, 0.18), rgba(15, 23, 42, 0)),
+      linear-gradient(var(--page-bg), var(--page-bg));
+    background-attachment: fixed;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+    background-size: 86px 86px;
+    mask-image: radial-gradient(circle at center, black 42%, transparent 100%);
+    opacity: 0.42;
+  }
+
+  a {
+    @apply no-underline;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+
+  ::selection {
+    background: rgba(56, 189, 248, 0.24);
+  }
+
+  #root {
+    @apply min-h-screen;
+  }
+}
+
+@layer components {
+  .page-shell {
+    @apply relative mx-auto w-full max-w-[1600px] px-4 sm:px-6 xl:px-8;
+  }
+
+  .glass-panel {
+    @apply relative rounded-[32px] border border-white/20 bg-[var(--panel)] p-6 shadow-[var(--shadow-soft)] backdrop-blur-2xl lg:p-8;
+  }
+
+  .section-kicker {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/55 px-4 py-2 text-xs font-semibold uppercase tracking-[0.32em] text-[var(--text-muted)] shadow-[0_12px_28px_rgba(15,23,42,0.06)] dark:bg-white/6;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 bg-clip-text text-transparent;
+  }
+
+  .soft-button {
+    @apply inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/55 text-[var(--text-primary)] shadow-[0_12px_28px_rgba(15,23,42,0.06)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white/75 dark:bg-white/6 dark:hover:bg-white/10;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(59,130,246,0.32)] transition hover:-translate-y-0.5 hover:shadow-[0_24px_55px_rgba(59,130,246,0.38)];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/60 px-5 py-3 text-sm font-semibold text-[var(--text-primary)] shadow-[0_12px_30px_rgba(15,23,42,0.07)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white/78 dark:bg-white/7 dark:hover:bg-white/10;
+  }
+
+  .soft-select {
+    @apply relative inline-flex min-h-12 flex-col justify-center gap-1 rounded-[22px] border border-white/20 bg-white/55 px-4 py-2 shadow-[0_12px_28px_rgba(15,23,42,0.06)] backdrop-blur-xl dark:bg-white/6;
+  }
+
+  .soft-toggle {
+    @apply inline-flex h-11 w-11 items-center justify-center rounded-2xl text-[var(--text-secondary)] transition hover:text-[var(--text-primary)];
+  }
+
+  .soft-toggle-active {
+    @apply bg-white text-[var(--text-primary)] shadow-[0_12px_24px_rgba(15,23,42,0.08)] dark:bg-white/10;
+  }
+
+  .input-shell {
+    @apply relative flex flex-col gap-3 rounded-[24px] border border-white/20 bg-white/55 p-4 shadow-[0_12px_30px_rgba(15,23,42,0.06)] backdrop-blur-xl transition focus-within:border-cyan-400/35 focus-within:shadow-[0_18px_45px_rgba(56,189,248,0.12)] dark:bg-white/6;
+  }
+
+  .input-field {
+    @apply w-full border-none bg-transparent p-0 text-base text-[var(--text-primary)] outline-none placeholder:text-[var(--text-muted)];
+  }
+
+  .label-text {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-[var(--text-muted)];
+  }
+
+  .error-text {
+    @apply text-sm font-medium text-rose-600 dark:text-rose-300;
+  }
+
+  .soft-feature {
+    @apply flex gap-4 rounded-[28px] border border-white/20 bg-white/55 p-5 shadow-[0_16px_34px_rgba(15,23,42,0.05)] backdrop-blur-xl dark:bg-white/6;
+  }
+
+  .stat-chip {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/65 px-3 py-2 text-sm font-medium text-[var(--text-primary)] shadow-[0_12px_24px_rgba(15,23,42,0.05)] dark:bg-white/8;
+  }
+}
