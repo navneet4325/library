@@ -1,0 +1,1 @@
+import{O as e,j as t}from"./useAppStore-m2_Gh3Wr.js";var n=t(e(),1);function r(e,t=250){let[r,i]=(0,n.useState)(e);return(0,n.useEffect)(()=>{let n=window.setTimeout(()=>{i(e)},t);return()=>window.clearTimeout(n)},[t,e]),r}export{r as t};
